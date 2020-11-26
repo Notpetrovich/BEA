@@ -1,8 +1,21 @@
 import random
+from winsound import *
+import sys
 
 
-# the main dict of rules by which notes change
-# note that all may go to hell if some list shell not be sorted
+# dict with samples' addresses
+samples = {
+    "strumento melodico": {
+        "low": "samples\\melodia\\low.wav",
+        "high": "samples\\melodia\\high.wav"
+    },
+    "tamburi": {
+        1: "samples\\tamburi\\1.wav"
+    }
+}
+
+# the main dict of rules according to which notes change
+# note that everything may go to hell if some list shell not be sorted
 harmony = {
     "basic harmony": {
         "after keys": {
@@ -31,6 +44,9 @@ harmony = {
     },
     "cool endings": {
 
+    },
+    "drum hooks": {
+
     }
 }
 
@@ -50,14 +66,6 @@ class MelodyPattern:
             else:
                 self.notes.append(stronginterval)
 
-
-class Melody (MelodyPattern):
-    def __init__(self, timesign, duration=0):
-        super().__init__(timesign, duration)
-        self.background = []
-        for i in range(self.timesign**2 - self.timesign):
-            self.background.append(0)
-
         # stages of the melody
         self.stages = {
             0: "starting",
@@ -67,6 +75,20 @@ class Melody (MelodyPattern):
         }
         # initial stage is "starting", then it shell define a current stage
         self.stage = self.stages[0]
+
+    def new_stage(self, name_of_stage):
+        if type(name_of_stage) == int:
+            self.stage = self.stages[name_of_stage]
+        else:
+            self.stage = name_of_stage
+
+
+class Melody (MelodyPattern):
+    def __init__(self, timesign, duration=0):
+        super().__init__(timesign, duration)
+        self.background = []
+        for i in range(self.timesign**2 - self.timesign):
+            self.background.append(0)
 
     def var(self, notes):
         """
@@ -135,7 +157,7 @@ class Melody (MelodyPattern):
             pass
 
 
-class Bit (MelodyPattern):
+class Beat (MelodyPattern):
     def __init__(self, timesign, duration=0):
         super().__init__(timesign, duration)
 
@@ -143,7 +165,18 @@ class Bit (MelodyPattern):
         pass
 
 
-def updating(mel, bit):
-    mel.relaxation()
-    bit.relaxation()
-    return mel.notes, bit.notes
+def updating(mel, beat, set_stage=0):
+    if not set_stage:
+        mel.relaxation()
+        beat.relaxation()
+
+    else:
+        mel.new_stage(set_stage)
+        beat.new_stage(set_stage)
+
+    return mel.notes, beat.notes
+
+
+# FIXME: winsound may not work adequately; lib for linux even can not be plugged
+def play_melody(gamma, volume, duration, agressive="low"):
+    pass
