@@ -79,8 +79,8 @@ def left_leg(x, y, k, beta_left):
 
 
 def draw_human(x, y, params):
-    right_hand(x, y, 10, 0.1)
-    left_hand(x, y, 10, 0.4)
-    right_leg(x, y, 10, 0.2)
-    left_leg(x, y, 10, 0.3)
-    body(x, y, 10)
+    right_hand(x, y, size, params[0])
+    left_hand(x, y, size, params[1])
+    right_leg(x, y, size, params[2])
+    left_leg(x, y, size, params[3])
+    body(x, y, size)
