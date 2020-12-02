@@ -1,5 +1,6 @@
 from tkinter import *
 import graphic
+import gameplay.newgame
 
 class StartPage:
     def react(self, event):
@@ -19,6 +20,7 @@ class StartPage:
 
     def __init__(self, canv, root):
         self.canv = canv
+        self.root = root
         react = lambda event: self.react(event)
         root.bind('<Key>', react , add='')  
         self.current_line = 0
@@ -26,6 +28,7 @@ class StartPage:
         self.timers = [0, 0]
 
     def update(self, time):
+        
         for i in range(len(self.timers)):
             self.timers[i] -= time
             if self.timers[i] < 0:
@@ -35,6 +38,10 @@ class StartPage:
             self.timers[1] = 10000
 
         if self.go  != -1:
+            if self.go == 3:
+                self.root.quit()
+            if self.go == 0:
+                return gameplay.newgame.NewGame(self.canv, self.root)
             self.go = -1
             self.timers[0] = 3000
 
