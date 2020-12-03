@@ -56,6 +56,7 @@ class MelodyPattern:
         self.timesign = timesign
         self.duration = duration
         self.notes = []
+        self.old_notes = []
         stronginterval = random.choice((-1, 1, 3))
         self.strongnote = random.randint(0, self.timesign - 1)
 
@@ -116,11 +117,12 @@ class Melody (MelodyPattern):
                 var2 = harmony["basic harmony"]["before keys"][notesMatter[2]]
 
                 if lenght >= 4:
-                    for ntoe in var1:
+                    for ntoe in var1 + var2:
                         if ntoe == notesMatter[0] or ntoe == notesMatter[2]:
                             var1.remove(ntoe)
+                            var2.remove(ntoe)
 
-                variant = [var1[nt] for nt in var1 if var2.count(var1[nt])]
+                variant = [var1[ant] for ant in var1 if var2.count(var1[ant])]
 
                 for j in variant:
                     new_variation = []
@@ -144,9 +146,35 @@ class Melody (MelodyPattern):
 
         return variations
 
-    def relaxation(self, new_stage=0):
+    def relaxation(self):
         if self.stage == "starting":
-            pass
+
+            self.old_notes = self.notes
+
+            if len(self.notes) == self.timesign:
+                new_note = self.var(self.old_notes)
+
+                for i in range(self.timesign - 1):
+                    if not i == self.strongnote:
+                        self.notes.extend(new_note)
+
+                    else:
+                        absolutely_new_notes = new_note
+
+                        for j in range(self.timesign - 2):
+                            absolutely_new_notes = self.var(absolutely_new_notes)
+
+                        self.notes.extend(absolutely_new_notes)
+
+            else:
+                bar = random.choice([i for i in range(self.timesign) if not i == self.strongnote])
+                partNote = [self.old_notes[note] for note in range(bar * self.timesign, (bar + 1) * self.timesign)]
+
+                new_note = self.var(partNote)
+                for i in range(self.timesign - 1):
+                    if not i == self.strongnote:
+                        for j in range(self.timesign):
+                            self.notes.insert(i * self.timesign + j, new_note[j])
 
         elif self.stage == "variation 1":
             pass
@@ -167,15 +195,7 @@ class Beat (MelodyPattern):
 
 
 def updating(mel, beat, set_stage=0):
-    if not set_stage:
-        mel.relaxation()
-        beat.relaxation()
-
-    else:
-        mel.new_stage(set_stage)
-        beat.new_stage(set_stage)
-
-    return mel.notes, beat.notes
+    pass
 
 
 # FIXME: winsound may not work adequately; lib for linux even can not be plugged
