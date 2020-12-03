@@ -87,6 +87,7 @@ class Melody (MelodyPattern):
     def __init__(self, timesign, duration=0):
         super().__init__(timesign, duration)
         self.background = []
+
         for i in range(self.timesign**2 - self.timesign):
             self.background.append(0)
 
@@ -97,40 +98,40 @@ class Melody (MelodyPattern):
         :return: notes` variation
         """
         lenght = len(notes)
-        variations = [0 for i in range(lenght)]
+        variations = []
+
         if self.stage == "starting":
+            notes_nums = []
             if not notes.count(0):
-                for i in range(lenght):
-                    var1 = []
-                    var2 = []
-                    if lenght <= 3:
-                        notesMatter = [notes[nt] for nt in notes if not nt == i]
-                        var1 = harmony["basic harmony"]["after keys"][notesMatter[0]]
-                        var2 = harmony["basic harmony"]["before keys"][notesMatter[1]]
-
-                    else:
-                        pass
-
-                    var = [var1[nt] for nt in var1 if var2.count(var1[nt])]
-                    for j in var:
-                        new_variation = []
-                        for k in notes:
-                            if not k == i:
-                                new_variation.append(notes.key)
-                            else:
-                                new_variation.append(j)
-
-                        variations.append(new_variation)
-
+                notes_nums = range(lenght)
             else:
-                zeroes = [nt for nt in notes if notes[nt] == 0]
-                randzero = random.randint(0, len(zeroes) - 1)
-                backnote = notes[randzero - 1]
-                fornote = notes[randzero + 1]
+                array_of_notes = [nts for nts in notes if notes[nts] == 0]
+
+            for i in notes_nums:
                 var1 = []
-                if backnote:
-                    if backnote == 1:
-                        pass
+                var2 = []
+
+                notesMatter = [notes[i-2], notes[i-1], notes[i+1], notes[i+2]]
+                var1 = harmony["basic harmony"]["after keys"][notesMatter[1]]
+                var2 = harmony["basic harmony"]["before keys"][notesMatter[2]]
+
+                if lenght >= 4:
+                    for ntoe in var1:
+                        if ntoe == notesMatter[0] or ntoe == notesMatter[2]:
+                            var1.remove(ntoe)
+
+                variant = [var1[nt] for nt in var1 if var2.count(var1[nt])]
+
+                for j in variant:
+                    new_variation = []
+
+                    for k in notes:
+                        if not k == i:
+                            new_variation.append(notes.key)
+                        else:
+                            new_variation.append(j)
+
+                    variations.append(new_variation)
 
         elif self.stage == "first variation":
             pass
@@ -143,7 +144,7 @@ class Melody (MelodyPattern):
 
         return variations
 
-    def relaxation(self):
+    def relaxation(self, new_stage=0):
         if self.stage == "starting":
             pass
 
