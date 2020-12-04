@@ -66,6 +66,7 @@ class MelodyPattern:
 
             else:
                 self.notes.append(stronginterval)
+        self.relaxation(self.notes)
 
         # stages of the melody
         self.stages = {
@@ -152,7 +153,7 @@ class Melody (MelodyPattern):
             self.old_notes = self.notes
 
             if len(self.notes) == self.timesign:
-                new_note = self.var(self.old_notes)
+                new_note = random.choice(self.var(self.old_notes))
 
                 for i in range(self.timesign - 1):
                     if not i == self.strongnote:
@@ -162,7 +163,7 @@ class Melody (MelodyPattern):
                         absolutely_new_notes = new_note
 
                         for j in range(self.timesign - 2):
-                            absolutely_new_notes = self.var(absolutely_new_notes)
+                            absolutely_new_notes = random.choice(self.var(absolutely_new_notes))
 
                         self.notes.extend(absolutely_new_notes)
 
@@ -170,7 +171,7 @@ class Melody (MelodyPattern):
                 bar = random.choice([i for i in range(self.timesign) if not i == self.strongnote])
                 partNote = [self.old_notes[note] for note in range(bar * self.timesign, (bar + 1) * self.timesign)]
 
-                new_note = self.var(partNote)
+                new_note = random.choice(self.var(partNote))
                 for i in range(self.timesign - 1):
                     if not i == self.strongnote:
                         for j in range(self.timesign):
