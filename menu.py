@@ -1,14 +1,12 @@
 from tkinter import *
 import graphic
-import gameplay.newgame
+import gameplay.game
 
 
 class MenuPage:
     def __init__(self, canvas, root):
         self.canv = canvas
         self.root = root
-        react = lambda event: self.react(event)
-        root.bind('<Key>', react, add='')
         self.current_line = 0
         self.go = -1
 
@@ -30,14 +28,37 @@ class MenuPage:
 class PausePage(MenuPage):
     def __init__(self, canvas, root):
         super().__init__(canvas, root)
+        activation = lambda event: self.activation(event)
+        self.canv.bind('<Escape>', activation, add='')
+        self.game = gameplay.game.Game(self.canv, self.root)
+        self.state = False
 
     def update(self):
-        pass
+        if self.state:
+            pass
+
+        else:
+            pass
+
+    def activation(self):
+        self.state = True
+        reaction = lambda event: self.react(event)
+        self.canv.bind('<Key>', reaction)
+        desactivation = lambda event: self.desactivation(event)
+        self.canv.bind('<Escape>', desactivation, add='')
+
+    def desactivation(self):
+        self.state = False
+        self.canv.bind('<Key>', NONE)
+        activation = lambda event: self.activation(event)
+        self.canv.bind('<Escape>', activation, add='')
 
 
 class StartPage(MenuPage):
     def __init__(self, canvas, root):
         super().__init__(canvas, root)
+        react = lambda event: self.react(event)
+        root.bind('<Key>', react, add='')
         self.timers = [0, 0]
 
     def update(self, time):
