@@ -2,7 +2,13 @@ from tkinter import *
 import graphic
 import gameplay.newgame
 
-class StartPage:
+
+class PausePage(object):
+    def react(self, event):
+        pass
+
+
+class StartPage(object):
     def react(self, event):
         if event.keysym == "Down":
             self.current_line += 1
@@ -17,18 +23,16 @@ class StartPage:
         if event.keysym == "Return":
             self.go = self.current_line
 
-
     def __init__(self, canv, root):
         self.canv = canv
         self.root = root
         react = lambda event: self.react(event)
-        root.bind('<Key>', react , add='')  
+        root.bind('<Key>', react , add = '')  
         self.current_line = 0
         self.go = -1
         self.timers = [0, 0]
 
     def update(self, time):
-        
         for i in range(len(self.timers)):
             self.timers[i] -= time
             if self.timers[i] < 0:
@@ -37,11 +41,13 @@ class StartPage:
         if self.timers[1] == 0:
             self.timers[1] = 10000
 
-        if self.go  != -1:
+        if self.go != -1:
             if self.go == 3:
                 self.root.quit()
-            if self.go == 0:
+            
+            elif self.go == 0:
                 return gameplay.newgame.NewGame(self.canv, self.root)
+            
             self.go = -1
             self.timers[0] = 3000
 
@@ -49,12 +55,9 @@ class StartPage:
         return self
         
 
-
 class Menu:
     def update(self, time):
         self.current_state = self.current_state.update(time)
 
     def __init__(self, canv, root):
         self.current_state = StartPage(canv, root)
-
-    
