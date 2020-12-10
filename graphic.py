@@ -19,7 +19,7 @@ class Aggregator(object):
         pass
         
 
-def deleting():
+def rubbing():
     ag = Aggregator()
     
     for fig in ag.old_figures:
@@ -44,7 +44,7 @@ def draw_start_page(current_line, timers):
     ag.add(
         canv.create_rectangle(
             (0, 0, 1280, 720),
-            fill = awesome_grey
+            fill=awesome_grey
         )
     )
     ag.add(
@@ -68,12 +68,12 @@ def draw_start_page(current_line, timers):
     )
     ag.add(
         canv.create_text(
-        730 + head0,
-        100,
-        text="A",
-        justify=CENTER, 
-        font="Impact 100",
-        fill=awesome_not_grey
+            730 + head0,
+            100,
+            text="A",
+            justify=CENTER,
+            font="Impact 100",
+            fill=awesome_not_grey
         )
     )
     ag.add(
@@ -91,18 +91,19 @@ def draw_start_page(current_line, timers):
             640,
             350,
             text="Загрузить игру",
-            justify=CENTER, 
+            justify=CENTER,
             font="Impact 40",
             fill=c[1]
         )
     )
     ag.add(
-        canv.create_text(640,
-        400,
-        text="Настройки",
-        justify=CENTER,
-        font="Impact 40",
-        fill=c[2]
+        canv.create_text(
+            640,
+            400,
+            text="Настройки",
+            justify=CENTER,
+            font="Impact 40",
+            fill=c[2]
         )
     )
     ag.add(
@@ -126,3 +127,7 @@ def draw_start_page(current_line, timers):
                 fill="#FF2060"
             )
         )
+
+
+def draw_pause_page(current_line):
+    pass
