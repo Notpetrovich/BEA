@@ -15,22 +15,24 @@ canv.pack()
 ag = graphic.Aggregator()
 ag.canv = canv
 menu = menu.Menu(canv, root)
+t = datetime.now()
 
 
 def update():
     '''
     updating game state and redrawing screen
     '''
-    t = datetime.now()
-    graphic.deleting()
+    global t
     dt = (datetime.now() - t)
-    dt = dt.microseconds/1000
+    dt = dt.microseconds / 1000
+    t = datetime.now()
     menu.update(dt)
     dt -= FPS
-    if dt<0:
+    if dt < 0:
         dt = 0
-    
-    root.after(int(dt)+1, update)
+    graphic.rubbing()
+
+    root.after(int(dt) + 1, update)
     
 
 update()
