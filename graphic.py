@@ -130,4 +130,52 @@ def draw_start_page(current_line, timers):
 
 
 def draw_pause_page(current_line):
-    pass
+    ag = Aggregator()
+    canv = ag.canv
+    c = ["#8080FF"] * 4
+    c[current_line] = "#FF30FF"
+    ag.add(
+        canv.create_rectangle(
+            (0, 0, 1280, 720),
+            fill="#FFE4E1"
+        )
+    )
+    ag.add(
+        canv.create_text(
+            650,
+            100, text="Пауза",
+            justify=CENTER,
+            font="Impact 100",
+            fill="#BC8F8F"
+        )
+    )
+    ag.add(
+        canv.create_text(
+            640,
+            300,
+            text="Вернуться",
+            justify=CENTER,
+            font="Impact 40",
+            fill=c[0]
+        )
+    )
+    ag.add(
+        canv.create_text(
+            640,
+            350,
+            text="Сохранение",
+            justify=CENTER,
+            font="Impact 40",
+            fill=c[1]
+        )
+    )
+    ag.add(
+        canv.create_text(
+            640,
+            400,
+            text="Выход",
+            justify=CENTER,
+            font="Impact 40",
+            fill=c[2]
+        )
+    )
