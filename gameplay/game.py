@@ -8,15 +8,15 @@ class Game:
         self.world = gameplay.world.World()
         react = lambda event: self.react(event)
         self.root.bind('<Key>', react, add='')
-        self.player = gameplay.gameobjects.Player()
-        self.enemy = gameplay.gameobjects.Enemy()
+        self.player = gameplay.gameobjects.Player(self.canv, [50, 50])
+        self.enemy = gameplay.gameobjects.Enemy(self.canv, [100, 100])
         self.world.objects.extend([self.player, self.enemy])
 
     def react(self, event):
         pass
 
     def draw_world(self):
-        pass
+        self.canv.create_rectangle(10, 10, 190, 60, fill='yellow')
 
     def draw_interface(self):
         pass
