@@ -1,25 +1,28 @@
 from tkinter import *
 import graphic
 import gameplay.game
+import os
 
 
 class MenuPage:
-    def __init__(self, canvas, root):
+    def __init__(self, canvas, root, numlines=1, time=0):
         self.canv = canvas
         self.root = root
+        self.numlines = numlines
         self.current_line = 0
         self.go = -1
+        self.time = time
 
     def react(self, event):
         if event.keysym == "Down":
             self.current_line += 1
-            if self.current_line > 3:
+            if self.current_line > self.numlines - 1:
                 self.current_line = 0
 
         if event.keysym == "Up":
             self.current_line -= 1
             if self.current_line < 0:
-                self.current_line = 3
+                self.current_line = self.numlines - 1
 
         if event.keysym == "Return":
             self.go = self.current_line
@@ -27,38 +30,46 @@ class MenuPage:
 
 class PausePage(MenuPage):
     def __init__(self, canvas, root):
-        super().__init__(canvas, root)
-        activation = lambda event: self.activation(event)
-        self.canv.bind('<Escape>', activation, add='')
+        super().__init__(canvas, root, 3)
+        activation = lambda event: self.activation()
+        self.root.bind('<Escape>', activation, add='')
         self.game = gameplay.game.Game(self.canv, self.root)
         self.state = False
 
-    def update(self):
+    def update(self, time):
         if self.state:
-            pass
+            graphic.draw_pause_page(self.current_line)
+            if self.go == 2:
+                self.desactivation()
+            elif self.go == 1:
+                pass
+                #for attributes in
+            return self
 
         else:
-            pass
+            self.game.update(time)
+            return self
 
     def activation(self):
         self.state = True
         reaction = lambda event: self.react(event)
-        self.canv.bind('<Key>', reaction)
-        desactivation = lambda event: self.desactivation(event)
-        self.canv.bind('<Escape>', desactivation, add='')
+        self.root.bind('<Key>', NONE)
+        self.root.bind('<Key>', reaction)
+        desactivation = lambda event: self.desactivation()
+        self.root.bind('<Escape>', desactivation, add='')
 
     def desactivation(self):
         self.state = False
-        self.canv.bind('<Key>', NONE)
-        activation = lambda event: self.activation(event)
-        self.canv.bind('<Escape>', activation, add='')
+        self.root.bind('<Key>', NONE)
+        activation = lambda event: self.activation()
+        self.root.bind('<Escape>', activation, add='')
 
 
 class StartPage(MenuPage):
     def __init__(self, canvas, root):
-        super().__init__(canvas, root)
+        super().__init__(canvas, root, 4)
         react = lambda event: self.react(event)
-        root.bind('<Key>', react, add='')
+        self.root.bind('<Key>', react, add='')
         self.timers = [0, 0]
 
     def update(self, time):
