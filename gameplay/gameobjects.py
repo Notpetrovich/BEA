@@ -6,8 +6,6 @@ class GameObject(object):
     def __init__(self, canvas, tag, coords):
         self.canv = canvas
         self.tag = tag
-        self.coords = []
-        self.coords = coords
         self.coords = coords
     
     def update(self):
@@ -15,44 +13,42 @@ class GameObject(object):
 
 
 class Player(GameObject):
-    def __init__(self, canvas, tag="player", coords=[150, 150]):
+    def __init__(self, canvas, root, coords=[150, 150], tag="player"):
         super().__init__(canvas, tag, coords)
-        self.speed = 5
-        self.health_points = 100
-        self.experience_points = 0
+        # self.speed = 5
+        # self.health_points = 100
+        # self.experience_points = 0
+        self.root = root
+        self.root.bind('<KeyPress-Space>', self.pressing)
+        self.root.bind('<KeyRelease-Space>', self.unpressing)
+        self.pressed = False
         x = self.coords[0]
         y = self.coords[1]
         k = 100
-        self.canv.create_rectangle(
+        self.id = self.canv.create_rectangle(
             x, y, x + k, y + 2*k,
             fill='red',
             outline='green',
             tag=self.tag
         )
-    
-    def step(self, direction, time=5):
-        """
-        direction is an angle in radians from the direction of right
-        """
-        dist = self.speed * time
-        delta_x = int(math.cos(direction) * dist)
-        delta_y = int(math.sin(direction) * dist)
-        new_x = self.coords[0] + delta_x
-        new_y = self.coords[1] + delta_y
 
-        if new_x >= 1280 or new_x <= 0:
-            new_x = self.coords[0]
-        
-        if new_y >= 720 or new_y <= 0:
-            new_y = self.coords[1]
-        
-        self.coords = [new_x, new_y]
-        self.canv.move(self.tag, new_x, new_y)
+    def pressing(self, event=tkinter.NONE):
+        if not self.pressed:
+            self.pressed = True
+            self.step()
+
+    def unpressing(self, event=tkinter.NONE):
+        self.pressed = False
+
+    def step(self, event=tkinter.NONE):
+        if self.pressed:
+            self.canv.move(self.tag, 5, 0)
+            self.root.after(50, self.step)
     
     def attack(self):
         pass
 
 
 class Enemy(GameObject):
-    def __init__(self, canvas, tag="enemy", coords=[50, 50]):
+    def __init__(self, canvas, coords=[50, 50], tag="enemy"):
         super().__init__(canvas, tag, coords)
