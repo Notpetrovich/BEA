@@ -8,8 +8,8 @@ class World(object):
     
     def __init__(self):
         self.things = []
-        self.texture
 
-    def change(self, time):
-        for thing in self.things:
-            thing.update()
+    def update(self, time):
+        pass
+        # for thing in self.things:
+        #     thing.update()

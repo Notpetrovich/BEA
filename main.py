@@ -33,11 +33,11 @@ def update():
     dt = (datetime.now() - menu.time)
     dt = dt.microseconds / 1000
     menu.time = datetime.now()
+    graphic.rubbing()
     menu.update(dt)
     dt -= FPS
     if dt < 0:
         dt = 0
-    graphic.rubbing()
 
     root.after(int(dt) + 1, update)
 

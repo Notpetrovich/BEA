@@ -31,8 +31,7 @@ class MenuPage:
 class PausePage(MenuPage):
     def __init__(self, canvas, root):
         super().__init__(canvas, root, 3)
-        activation = lambda event: self.activation()
-        self.root.bind('<Escape>', activation, add='')
+        self.root.bind('<Escape>', self.activation, add='')
         self.game = gameplay.game.Game(self.canv, self.root)
         self.state = False
 
@@ -50,19 +49,16 @@ class PausePage(MenuPage):
             self.game.update(time)
             return self
 
-    def activation(self):
+    def activation(self, event=NONE):
         self.state = True
-        reaction = lambda event: self.react(event)
         self.root.bind('<Key>', NONE)
-        self.root.bind('<Key>', reaction)
-        desactivation = lambda event: self.desactivation()
-        self.root.bind('<Escape>', desactivation, add='')
+        self.root.bind('<Key>', self.react())
+        self.root.bind('<Escape>', self.desactivation, add='')
 
-    def desactivation(self):
+    def desactivation(self, event=NONE):
         self.state = False
         self.root.bind('<Key>', NONE)
-        activation = lambda event: self.activation()
-        self.root.bind('<Escape>', activation, add='')
+        self.root.bind('<Escape>', self.activation, add='')
 
 
 class StartPage(MenuPage):
