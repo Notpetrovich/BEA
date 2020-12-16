@@ -31,6 +31,7 @@ class MenuPage:
 class PausePage(MenuPage):
     def __init__(self, canvas, root):
         super().__init__(canvas, root, 3)
+        self.root.bind('<Key>', NONE, add='')
         self.root.bind('<Escape>', self.activation, add='')
         self.game = gameplay.game.Game(self.canv, self.root)
         self.state = False
@@ -38,34 +39,40 @@ class PausePage(MenuPage):
     def update(self, time):
         if self.state:
             graphic.draw_pause_page(self.current_line)
-            if self.go == 2:
+            if self.go == 0:
                 self.desactivation()
             elif self.go == 1:
                 pass
-                #for attributes in
-            return self
+
+            self.go = -1
 
         else:
-            self.game.update(time)
-            return self
+            self.game = self.game.update(time)
+
+        return self
 
     def activation(self, event=NONE):
         self.state = True
-        self.root.bind('<Key>', NONE)
-        self.root.bind('<Key>', self.react())
+        # self.root.unbind('<Key>')
+        # self.root.bind('<Key>', NONE, add='')
         self.root.bind('<Escape>', self.desactivation, add='')
+        self.root.bind('<Up>', self.react, add='')
+        self.root.bind('<Down>', self.react, add='')
+        self.root.bind('<Return>', self.react, add='')
 
     def desactivation(self, event=NONE):
         self.state = False
-        self.root.bind('<Key>', NONE)
+        self.root.unbind('<Up>', self.react)
+        self.root.unbind('<Down>', self.react)
+        self.root.unbind('<Return>', self.react)
+        self.root.bind('<Key>', NONE, add='')
         self.root.bind('<Escape>', self.activation, add='')
 
 
 class StartPage(MenuPage):
     def __init__(self, canvas, root):
         super().__init__(canvas, root, 4)
-        react = lambda event: self.react(event)
-        self.root.bind('<Key>', react, add='')
+        self.root.bind('<Key>', self.react, add='')
         self.timers = [0, 0]
 
     def update(self, time):
