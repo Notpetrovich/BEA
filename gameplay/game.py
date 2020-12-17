@@ -5,10 +5,12 @@ import math
 
 
 class Game:
-    def __init__(self, canvas, root):
+    def __init__(self, canvas, root, wight_of_screen, height_of_screen):
         self.canv = canvas
         self.root = root
-        self.world = gameplay.world.World()
+        self.weight = wight_of_screen
+        self.height = height_of_screen
+        self.world = gameplay.world.World(wight_of_screen, height_of_screen)
         self.player = gameplay.gameobjects.Player(self.canv, self.root, [50, 50])
         self.enemy = gameplay.gameobjects.Enemy(self.canv, [100, 100])
         # self.world.active_things.extend([self.player, self.enemy])
