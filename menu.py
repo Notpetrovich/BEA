@@ -1,7 +1,9 @@
 import tkinter
 import graphic
 import gameplay.game
+import os
 
+saves_directory = "saves\\"
 
 class MenuPage:
     def __init__(self, canvas, root, numlines=1, time=0):
@@ -46,8 +48,15 @@ class PausePage(MenuPage):
             graphic.draw_pause_page(self.current_line)
             if self.go == 0:
                 self.desactivation()
+
             elif self.go == 1:
                 pass
+                # savelist = os.listdir(saves_directory)
+                # save_num = str(len(savelist) + 1)
+                # new_save = open(saves_directory + save_num + ".txt", 'w+')
+                # text = self.game.give_param()
+                # new_save.write(text)
+
             elif self.go == 2:
                 start_menu = StartPage(self.canv, self.root)
                 return start_menu

@@ -4,12 +4,13 @@ from datetime import datetime
 import menu
 import graphic
 
+
 FPS = 40
 wight_of_screen = 1280
 height_of_screen = 720
 
 root = tkinter.Tk()
-root.geometry('1280x720')
+root.geometry('{}x{}'.format(str(wight_of_screen), str(height_of_screen)))
 root.resizable(False, False)
 root.title("BEA")
 root.config(cursor="none")

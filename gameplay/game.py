@@ -43,3 +43,6 @@ class Game:
         self.draw_interface()
 
         return self
+
+    def give_param(self):
+        return 'string'
