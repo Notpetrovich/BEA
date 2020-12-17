@@ -2,7 +2,8 @@ import tkinter
 import math
 
 
-class GameObject(object):
+# abstract class (using in this module only)
+class ActiveObject(object):
     def __init__(self, canvas, tag, coords):
         self.canv = canvas
         self.tag = tag
@@ -11,8 +12,11 @@ class GameObject(object):
     def update(self):
         return self
 
+    def draw_self(self):
+        pass
 
-class Player(GameObject):
+
+class Player(ActiveObject):
     def __init__(self, canvas, root, coords=[150, 150], tag="player"):
         super().__init__(canvas, tag, coords)
         # self.speed = 5
@@ -49,6 +53,6 @@ class Player(GameObject):
         pass
 
 
-class Enemy(GameObject):
+class Enemy(ActiveObject):
     def __init__(self, canvas, coords=[50, 50], tag="enemy"):
         super().__init__(canvas, tag, coords)

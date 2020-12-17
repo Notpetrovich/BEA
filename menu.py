@@ -1,7 +1,6 @@
-from tkinter import *
+import tkinter
 import graphic
 import gameplay.game
-import os
 
 
 class MenuPage:
@@ -9,6 +8,12 @@ class MenuPage:
         self.canv = canvas
         self.root = root
         self.numlines = numlines
+        # keys using for react
+        self.using_keys = [
+            "<Up>",
+            "<Down>",
+            "<Return>"
+        ]
         self.current_line = 0
         self.go = -1
         self.time = time
@@ -31,7 +36,7 @@ class MenuPage:
 class PausePage(MenuPage):
     def __init__(self, canvas, root):
         super().__init__(canvas, root, 3)
-        self.root.bind('<Key>', NONE, add='')
+        self.root.bind('<Key>', tkinter.NONE, add='')
         self.root.bind('<Escape>', self.activation, add='')
         self.game = gameplay.game.Game(self.canv, self.root)
         self.state = False
@@ -53,28 +58,25 @@ class PausePage(MenuPage):
         self.go = -1
         return self
 
-    def activation(self, event=NONE):
+    def activation(self, event=tkinter.NONE):
         self.state = True
         self.current_line = 0
         self.root.bind('<Escape>', self.desactivation, add='')
-        self.root.bind('<Up>', self.react, add='')
-        self.root.bind('<Down>', self.react, add='')
-        self.root.bind('<Return>', self.react, add='')
+        for key in self.using_keys:
+            self.root.bind(key, self.react, add='')
 
-    def desactivation(self, event=NONE):
+    def desactivation(self, event=tkinter.NONE):
         self.state = False
-        self.root.bind('<Key>', NONE, add='')
+        self.root.bind('<Key>', tkinter.NONE, add='')
         self.root.bind('<Escape>', self.activation, add='')
 
 
 class StartPage(MenuPage):
     def __init__(self, canvas, root):
         super().__init__(canvas, root, 4)
-        # self.root.bind('<Key>', self.react, add='')
-        self.root.bind('<Up>', self.react, add='')
-        self.root.bind('<Down>', self.react, add='')
-        self.root.bind('<Return>', self.react, add='')
         self.timers = [0, 0]
+        for key in self.using_keys:
+            self.root.bind(key, self.react, add='')
 
     def update(self, time):
         for i in range(len(self.timers)):

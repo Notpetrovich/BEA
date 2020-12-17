@@ -1,4 +1,4 @@
-from tkinter import *
+import tkinter
 import math
 
 
@@ -51,7 +51,7 @@ def draw_start_page(current_line, timers):
         canv.create_text(
             550 - head0,
             100, text="B",
-            justify=CENTER,
+            justify=tkinter.CENTER,
             font="Impact 100",
             fill=awesome_not_grey
         )
@@ -61,7 +61,7 @@ def draw_start_page(current_line, timers):
             640,
             100,
             text="E",
-            justify=CENTER,
+            justify=tkinter.CENTER,
             font="Impact 100",
             fill=awesome_not_grey
         )
@@ -71,7 +71,7 @@ def draw_start_page(current_line, timers):
             730 + head0,
             100,
             text="A",
-            justify=CENTER,
+            justify=tkinter.CENTER,
             font="Impact 100",
             fill=awesome_not_grey
         )
@@ -81,7 +81,7 @@ def draw_start_page(current_line, timers):
             640,
             300,
             text="Новая игра",
-            justify=CENTER,
+            justify=tkinter.CENTER,
             font="Impact 40",
             fill=c[0]
         )
@@ -91,7 +91,7 @@ def draw_start_page(current_line, timers):
             640,
             350,
             text="Загрузить игру",
-            justify=CENTER,
+            justify=tkinter.CENTER,
             font="Impact 40",
             fill=c[1]
         )
@@ -101,7 +101,7 @@ def draw_start_page(current_line, timers):
             640,
             400,
             text="Настройки",
-            justify=CENTER,
+            justify=tkinter.CENTER,
             font="Impact 40",
             fill=c[2]
         )
@@ -111,7 +111,7 @@ def draw_start_page(current_line, timers):
             640,
             450,
             text="Выход",
-            justify=CENTER,
+            justify=tkinter.CENTER,
             font="Impact 40",
             fill=c[3]
         )
@@ -122,7 +122,7 @@ def draw_start_page(current_line, timers):
                 200,
                 70,
                 text="Прикол пока не реализован  :<",
-                justify=CENTER,
+                justify=tkinter.CENTER,
                 font="Impact 16",
                 fill="#FF2060"
             )
@@ -144,7 +144,7 @@ def draw_pause_page(current_line):
         canv.create_text(
             650,
             100, text="Пауза",
-            justify=CENTER,
+            justify=tkinter.CENTER,
             font="Impact 100",
             fill="#BC8F8F"
         )
@@ -154,7 +154,7 @@ def draw_pause_page(current_line):
             640,
             300,
             text="Вернуться",
-            justify=CENTER,
+            justify=tkinter.CENTER,
             font="Impact 40",
             fill=c[0]
         )
@@ -164,7 +164,7 @@ def draw_pause_page(current_line):
             640,
             350,
             text="Сохранение",
-            justify=CENTER,
+            justify=tkinter.CENTER,
             font="Impact 40",
             fill=c[1]
         )
@@ -174,7 +174,7 @@ def draw_pause_page(current_line):
             640,
             400,
             text="Выход",
-            justify=CENTER,
+            justify=tkinter.CENTER,
             font="Impact 40",
             fill=c[2]
         )

@@ -13,7 +13,7 @@ class Game:
         self.root.bind('<KeyRelease-Return>', self.unpressing)
         # self.player = gameplay.gameobjects.Player(self.canv, self.root, [50, 50])
         # self.enemy = gameplay.gameobjects.Enemy(self.canv, [100, 100])
-        # self.world.things.extend([self.player, self.enemy])
+        # self.world.active_things.extend([self.player, self.enemy])
         self.draw_world()
         self.pressed = False
 
@@ -39,7 +39,7 @@ class Game:
     def update(self, time):
         self.root.bind('<KeyPress-Return>', self.pressing, add='')
         self.root.bind('<KeyRelease-Return>', self.unpressing)
-        self.world.update(time)
+        # self.world.update(time)
         self.draw_interface()
 
         return self

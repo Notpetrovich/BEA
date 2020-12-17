@@ -1,4 +1,5 @@
-from tkinter import *
+#from tkinter import *
+import tkinter
 from datetime import datetime
 import menu
 import graphic
@@ -7,12 +8,12 @@ FPS = 40
 wight_of_screen = 1280
 height_of_screen = 720
 
-root = Tk()
+root = tkinter.Tk()
 root.geometry('1280x720')
 root.resizable(False, False)
 root.title("BEA")
 root.config(cursor="none")
-canv = Canvas(
+canv = tkinter.Canvas(
     width=wight_of_screen,
     height=height_of_screen,
     bg='green',

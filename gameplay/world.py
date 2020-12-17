@@ -7,9 +7,10 @@ class World(object):
     #     return cls.instance
     
     def __init__(self):
-        self.things = []
+        self.active_things = []
 
     def update(self, time):
         pass
-        # for thing in self.things:
+        # for thing in self.active_things:
+        #     coords = thing.coords
         #     thing.update()
