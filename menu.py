@@ -6,7 +6,9 @@ import os
 saves_directory = "saves\\"
 
 class MenuPage:
-    def __init__(self, canvas, root, numlines=1, time=0):
+    def __init__(self, canvas, root, numlines, wight_of_screen, height_of_screen, time=0):
+        self.weight = wight_of_screen
+        self.height = height_of_screen
         self.canv = canvas
         self.root = root
         self.numlines = numlines
@@ -36,8 +38,8 @@ class MenuPage:
 
 
 class PausePage(MenuPage):
-    def __init__(self, canvas, root):
-        super().__init__(canvas, root, 3)
+    def __init__(self, canvas, root, wight_of_screen, height_of_screen):
+        super().__init__(canvas, root, 3, wight_of_screen, height_of_screen)
         self.root.bind('<Key>', tkinter.NONE, add='')
         self.root.bind('<Escape>', self.activation, add='')
         self.game = gameplay.game.Game(self.canv, self.root)
@@ -50,15 +52,14 @@ class PausePage(MenuPage):
                 self.desactivation()
 
             elif self.go == 1:
-                pass
-                # savelist = os.listdir(saves_directory)
-                # save_num = str(len(savelist) + 1)
-                # new_save = open(saves_directory + save_num + ".txt", 'w+')
-                # text = self.game.give_param()
-                # new_save.write(text)
+                savelist = os.listdir(saves_directory)
+                save_num = str(len(savelist) + 1)
+                new_save = open(saves_directory + save_num + ".txt", 'w+')
+                text = self.game.give_param()
+                new_save.write(text)
 
             elif self.go == 2:
-                start_menu = StartPage(self.canv, self.root)
+                start_menu = StartPage(self.canv, self.root, self.weight, self.height)
                 return start_menu
 
         else:
@@ -81,8 +82,8 @@ class PausePage(MenuPage):
 
 
 class StartPage(MenuPage):
-    def __init__(self, canvas, root):
-        super().__init__(canvas, root, 4)
+    def __init__(self, canvas, root, wight_of_screen, height_of_screen):
+        super().__init__(canvas, root, 4, wight_of_screen, height_of_screen)
         self.timers = [0, 0]
         for key in self.using_keys:
             self.root.bind(key, self.react, add='')
@@ -101,7 +102,7 @@ class StartPage(MenuPage):
                 self.root.quit()
             
             if self.go == 0:
-                pause_page = PausePage(self.canv, self.root)
+                pause_page = PausePage(self.canv, self.root, self.weight, self.height)
                 return pause_page
             
             self.go = -1
@@ -112,8 +113,8 @@ class StartPage(MenuPage):
         
 
 class Menu:
-    def __init__(self, canv, root):
-        self.current_state = StartPage(canv, root)
+    def __init__(self, canv, root, wight_of_screen, height_of_screen):
+        self.current_state = StartPage(canv, root, wight_of_screen, height_of_screen)
 
     def update(self, time):
         self.current_state = self.current_state.update(time)

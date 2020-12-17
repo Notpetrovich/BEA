@@ -1,6 +1,6 @@
-import gameplay.game
-import gameplay.gameobjects
-import gameplay.world
+import game
+import gameobjects
+import world
 
 class NewGame:
     def __init__(self, canv, root):

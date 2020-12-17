@@ -19,12 +19,12 @@ class ActiveObject(object):
 class Player(ActiveObject):
     def __init__(self, canvas, root, coords=[150, 150], tag="player"):
         super().__init__(canvas, tag, coords)
-        # self.speed = 5
-        # self.health_points = 100
-        # self.experience_points = 0
+        self.speed = 5
+        self.health_points = 100
+        self.experience_points = 0
         self.root = root
-        self.root.bind('<KeyPress-Space>', self.pressing)
-        self.root.bind('<KeyRelease-Space>', self.unpressing)
+        self.root.bind('<KeyPress-space>', self.pressing)
+        self.root.bind('<KeyRelease-space>', self.unpressing)
         self.pressed = False
         x = self.coords[0]
         y = self.coords[1]

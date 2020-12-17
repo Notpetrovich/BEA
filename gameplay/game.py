@@ -11,7 +11,7 @@ class Game:
         self.world = gameplay.world.World()
         self.root.bind('<KeyPress-Return>', self.pressing, add='')
         self.root.bind('<KeyRelease-Return>', self.unpressing)
-        # self.player = gameplay.gameobjects.Player(self.canv, self.root, [50, 50])
+        self.player = gameplay.gameobjects.Player(self.canv, self.root, [50, 50])
         # self.enemy = gameplay.gameobjects.Enemy(self.canv, [100, 100])
         # self.world.active_things.extend([self.player, self.enemy])
         self.draw_world()

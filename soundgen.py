@@ -113,7 +113,7 @@ class Melody (MelodyPattern):
                 var1 = []
                 var2 = []
 
-                notesMatter = [notes[i-2], notes[i-1], notes[i+1], notes[i+2]]
+                notesMatter = [notes[i - 2], notes[i - 1], notes[i + 1], notes[i + 2]]
                 var1 = harmony["basic harmony"]["after keys"][notesMatter[1]]
                 var2 = harmony["basic harmony"]["before keys"][notesMatter[2]]
 
@@ -149,7 +149,6 @@ class Melody (MelodyPattern):
 
     def relaxation(self):
         if self.stage == "starting":
-
             self.old_notes = self.notes
 
             if len(self.notes) == self.timesign:

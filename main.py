@@ -1,4 +1,3 @@
-#from tkinter import *
 import tkinter
 from datetime import datetime
 import menu
@@ -23,15 +22,15 @@ canv = tkinter.Canvas(
 canv.pack()
 ag = graphic.Aggregator()
 ag.canv = canv
-menu = menu.Menu(canv, root)
+menu = menu.Menu(canv, root, wight_of_screen, height_of_screen)
 t = datetime.now()
 menu.time = t
 
 
 def update():
-    '''
+    """
     updating game state and redrawing screen
-    '''
+    """
     dt = (datetime.now() - menu.time)
     dt = dt.microseconds / 1000
     menu.time = datetime.now()
