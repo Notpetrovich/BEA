@@ -57,6 +57,7 @@ class PausePage(MenuPage):
                 new_save = open(saves_directory + save_num + ".txt", 'w+')
                 text = self.game.give_param()
                 new_save.write(text)
+                new_save.close()
 
             elif self.go == 2:
                 start_menu = StartPage(self.canv, self.root, self.weight, self.height)
