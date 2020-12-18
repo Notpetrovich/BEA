@@ -2,6 +2,7 @@ import tkinter
 from datetime import datetime
 import menu
 import graphic
+from settings import *
 
 
 FPS = 40
